@@ -9,9 +9,12 @@ import com.example.newstestapi.repository.NewsRepositoryType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class  NewsViewModel(private val repository: NewsRepositoryType = NewsRepository()) : ViewModel() {
 
+    private val formatter: DateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME
     private val _articles = MutableStateFlow<List<ArticleModel>>(emptyList())
     val articles: StateFlow<List<ArticleModel>> = _articles
 
@@ -20,7 +23,7 @@ class  NewsViewModel(private val repository: NewsRepositoryType = NewsRepository
             try {
                 val response = repository.getTopHeadlines()
                 if (response.isSuccessful) {
-                    _articles.value = response.body()?.articles ?: emptyList()
+                    _articles.value = response.body()?.articles?.sortedByDescending { LocalDateTime.parse(it.publishedAt, formatter) } ?: emptyList()
                 } else {
                     _articles.value = emptyList()
                     Log.w("NewsViewModel", "API error: ${response.code()} - ${response.message()}")

@@ -18,13 +18,9 @@ import androidx.navigation.NavController
 import com.example.newstestapi.model.ArticleModel
 import com.example.newstestapi.ui.components.HeadlineItem
 import java.net.URLEncoder
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun NewsScreen(providerName: String, articles: List<ArticleModel>, navController: NavController) {
-    val formatter = DateTimeFormatter.ISO_DATE_TIME
-    val sortedArticles = articles.sortedByDescending { LocalDateTime.parse(it.publishedAt, formatter) }
 
     Column(modifier = Modifier
         .padding(16.dp)
@@ -40,7 +36,7 @@ fun NewsScreen(providerName: String, articles: List<ArticleModel>, navController
         )
 
         LazyColumn {
-            items(sortedArticles) { article ->
+            items(articles) { article ->
                 HeadlineItem(article) {
                     val encodedUrl = URLEncoder.encode(article.url, "UTF-8")
                     navController.navigate("detail/$encodedUrl")

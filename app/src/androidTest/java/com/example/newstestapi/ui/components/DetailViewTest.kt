@@ -2,7 +2,6 @@ package com.example.newstestapi.ui.components
 
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
 import com.example.newstestapi.model.ArticleModel
 import com.example.newstestapi.ui.view.DetailScreen
 import org.junit.Rule
@@ -18,7 +17,7 @@ class DetailViewTest {
         content = "This is the content",
         urlToImage = "https://example.com/image.jpg",
         url = "https://example.com",
-        publishedAt = ""
+        publishedAt = "2025-08-04T14:35:00Z"
     )
 
     @Test
@@ -55,7 +54,7 @@ class DetailViewTest {
             content = "This is the content",
             urlToImage = "https://picsum.photos/200/300",
             url = "https://example.com",
-            publishedAt = ""
+            publishedAt = "2025-08-04T14:35:00Z"
         )
 
         // Act: Set the composable under test
@@ -78,7 +77,7 @@ class DetailViewTest {
             content = "This is the content",
             urlToImage = null,
             url = "https://example.com",
-            publishedAt = ""
+            publishedAt = "2025-08-04T14:35:00Z"
         )
 
         // Act: Set the composable under test

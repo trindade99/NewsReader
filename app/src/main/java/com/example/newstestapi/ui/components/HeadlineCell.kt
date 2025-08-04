@@ -22,10 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.newstestapi.model.ArticleModel
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
 fun HeadlineItem(article: ArticleModel, onClick: () -> Unit) {
+    val dateInputFormatter = DateTimeFormatter.ISO_DATE_TIME
+    val dateOutputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")
+
     Column(modifier = Modifier
         .fillMaxWidth()
         .clickable { onClick() }
@@ -58,7 +62,7 @@ fun HeadlineItem(article: ArticleModel, onClick: () -> Unit) {
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            text = article.publishedAt.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+            text = LocalDateTime.parse(article.publishedAt, dateInputFormatter).format(dateOutputFormatter),
             modifier = Modifier
                 .testTag("dateText"),
             style = MaterialTheme.typography.bodySmall

@@ -3,7 +3,6 @@ package com.example.newstestapi.ui.components
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.compose.rememberNavController
 import com.example.newstestapi.R
 import com.example.newstestapi.model.ArticleModel
@@ -26,7 +25,7 @@ class NewsViewTest {
             content = "This is the content",
             urlToImage = "https://example.com/image.jpg",
             url = "https://example.com",
-            publishedAt = ""
+            publishedAt = "2025-08-04T14:35:00Z"
         )
         var appName = ""
 
