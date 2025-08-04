@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.annotation.VisibleForTesting
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.example.newstestapi.manager.Navigator
@@ -41,7 +43,12 @@ open class MainActivity : FragmentActivity() {
         viewModel.fetchArticles()
 
         setContent {
-            Navigator(viewModel)
+            val articles by viewModel.articles.collectAsState()
+
+            Navigator(
+                articles = articles,
+                onGetArticleByUrl = { url -> viewModel.getArticleByUrl(url) }
+            )
         }
     }
 

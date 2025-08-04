@@ -2,22 +2,21 @@ package com.example.newstestapi.manager
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newstestapi.R
+import com.example.newstestapi.model.ArticleModel
 import com.example.newstestapi.ui.view.DetailScreen
 import com.example.newstestapi.ui.view.NewsScreen
-import com.example.newstestapi.viewModel.NewsViewModel
 import java.net.URLDecoder
 
 @Composable
-fun Navigator(viewModel: NewsViewModel) {
-    val articles by viewModel.articles.collectAsState()
-
+fun Navigator(
+    articles: List<ArticleModel>,
+    onGetArticleByUrl: (String) -> ArticleModel?
+) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "news") {
@@ -29,7 +28,7 @@ fun Navigator(viewModel: NewsViewModel) {
         composable("detail/{articleUrl}") { backStackEntry ->
             val encodedUrl = backStackEntry.arguments?.getString("articleUrl") ?: ""
             val decodedUrl = URLDecoder.decode(encodedUrl, "UTF-8")
-            val article = viewModel.getArticleByUrl(decodedUrl)
+            val article = onGetArticleByUrl(decodedUrl)
             if (article != null) {
                 DetailScreen(article)
             } else {
