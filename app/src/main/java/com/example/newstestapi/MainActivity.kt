@@ -47,8 +47,8 @@ open class MainActivity : FragmentActivity() {
 
     protected open fun showBiometricPrompt(onSuccess: () -> Unit) {
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Fingerprint Required")
-            .setSubtitle("Authenticate to access the app")
+            .setTitle(getString(R.string.require_fingerPrint))
+            .setSubtitle(getString(R.string.require_fingerPrint_subtitle))
             .setNegativeButtonText("Cancel")
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
             .build()
@@ -62,13 +62,13 @@ open class MainActivity : FragmentActivity() {
 
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    Toast.makeText(applicationContext, "Authentication failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(R.string.error_fingerPrint_check), Toast.LENGTH_SHORT).show()
                     finish()
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    Toast.makeText(applicationContext, "Fingerprint not recognized", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(R.string.failed_fingerPrint_check), Toast.LENGTH_SHORT).show()
                 }
             })
 

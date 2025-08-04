@@ -39,6 +39,7 @@ fun DetailScreen(article: ArticleModel) {
         }
         Column(
             modifier = Modifier
+                .testTag("contentColumn")
                 .fillMaxSize()
         ) {
             article.urlToImage?.let { imageUrl ->
@@ -46,7 +47,8 @@ fun DetailScreen(article: ArticleModel) {
                     painter = rememberAsyncImagePainter(model = imageUrl),
                     contentDescription = null,
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .testTag("headerImage"),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -54,16 +56,21 @@ fun DetailScreen(article: ArticleModel) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .testTag("contentTextColumn")
                     .padding(horizontal = 16.dp)
             ){
                 Text(
                     text = article.title,
+                    modifier = Modifier
+                        .testTag("titleText"),
                     style = MaterialTheme.typography.headlineLarge
                 )
                 article.description?.let { description ->
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = description,
+                        modifier = Modifier
+                            .testTag("descriptionText"),
                         style = MaterialTheme.typography.labelMedium,
                     )
                 }
@@ -72,6 +79,8 @@ fun DetailScreen(article: ArticleModel) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = content,
+                        modifier = Modifier
+                            .testTag("contentText"),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }

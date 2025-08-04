@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -32,6 +33,7 @@ fun HeadlineItem(article: ArticleModel, onClick: () -> Unit) {
             elevation = 4.dp,
             shape = RoundedCornerShape(12.dp),
         )
+        .testTag("contentColumn")
         .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(12.dp))
         .clip(RoundedCornerShape(12.dp))
         .padding(16.dp)
@@ -42,6 +44,7 @@ fun HeadlineItem(article: ArticleModel, onClick: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .testTag("headerImage")
                     .height(180.dp),
                 contentScale = ContentScale.Crop
             )
@@ -50,10 +53,14 @@ fun HeadlineItem(article: ArticleModel, onClick: () -> Unit) {
         Text(
             text = article.title,
             style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier
+                .testTag("headline_titleText"),
             fontWeight = FontWeight.SemiBold
         )
         Text(
             text = article.publishedAt.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")),
+            modifier = Modifier
+                .testTag("dateText"),
             style = MaterialTheme.typography.bodySmall
         )
     }

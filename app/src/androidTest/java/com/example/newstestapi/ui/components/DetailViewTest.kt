@@ -34,15 +34,15 @@ class DetailViewTest {
 
         // Assert: Check texts are displayed
         composeTestRule
-            .onNodeWithText("Test Title")
+            .onNode(hasTestTag("titleText"))
             .assertExists()
 
         composeTestRule
-            .onNodeWithText("This is the description")
+            .onNode(hasTestTag("descriptionText"))
             .assertExists()
 
         composeTestRule
-            .onNodeWithText("This is the content")
+            .onNode(hasTestTag("contentText"))
             .assertExists()
     }
 

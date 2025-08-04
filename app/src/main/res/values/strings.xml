@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NewsTestApi</string>
+    <string name="require_fingerPrint">Fingerprint Required</string>
+    <string name="require_fingerPrint_subtitle">"Authenticate to access the app"</string>
+    <string name="error_fingerPrint_check">Authentication failed</string>
+    <string name="failed_fingerPrint_check">Fingerprint not recognized</string>
 </resources>

@@ -40,7 +40,6 @@ android {
         unitTests.isIncludeAndroidResources = true
     }
 
-
     buildTypes {
         debug {
             isDebuggable = true
@@ -89,7 +88,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 
     packaging {
@@ -125,33 +124,23 @@ dependencies {
 
     // Security
     implementation(libs.androidx.biometric)
-    implementation(libs.androidx.ui.test.junit4.android)
 
     // Testing dependencies
     testImplementation(libs.junit)
     testImplementation(libs.androidx.runner)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.androidx.navigation.testing)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Android Test dependencies
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core.v350)
+    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
-    testImplementation (libs.robolectric)
-
-    testImplementation (libs.androidx.core)
-    testImplementation (libs.androidx.navigation.testing)
 
     // Debug dependencies
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    // Mockk for unit tests
-    testImplementation(libs.mockk.v1133)
-
-    // Coroutine test library
-    testImplementation(libs.kotlinx.coroutines.test)
-
-    // JUnit
-    testImplementation (libs.junit)
-    androidTestImplementation (libs.androidx.ui.test.junit4.vcomposeversion)
-    debugImplementation (libs.androidx.ui.test.manifest.vcomposeversion)
-
 }

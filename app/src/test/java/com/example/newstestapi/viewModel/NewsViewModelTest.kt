@@ -14,6 +14,7 @@ import io.mockk.mockkStatic
 import io.mockk.every
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
+import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class NewsViewModelTest {
@@ -42,6 +43,20 @@ class NewsViewModelTest {
     }
 
     @Test
+    fun test_news_view_model_success_empty_response() = runTest {
+        val articlesList: List<ArticleModel> = emptyList()
+        val mockRepo = MockNewsRepository(articlesList) { newsResponse ->
+            Response.success(newsResponse)
+        }
+        val subject = NewsViewModel(repository = mockRepo)
+        subject.fetchArticles()
+
+        val articlesFromFlow = subject.getArticles()
+        assertEquals(articlesFromFlow, articlesList)
+    }
+
+
+    @Test
     fun test_news_view_model_fail_response() = runTest {
         val mockRepo = MockNewsRepository(emptyList()) { _ ->
             Response.error(
@@ -55,5 +70,18 @@ class NewsViewModelTest {
         val articlesFromFlow = subject.getArticles()
         val expected: List<ArticleModel> = emptyList()
         assertEquals(articlesFromFlow, expected)
+    }
+
+    @Test
+    fun test_news_view_model_exception_handling() = runTest {
+        val mockRepo = MockNewsRepository(emptyList()) { _ ->
+            throw IOException("Network error")
+        }
+        val subject = NewsViewModel(repository = mockRepo)
+        subject.fetchArticles()
+
+        val articlesFromFlow = subject.getArticles()
+        val expected: List<ArticleModel> = emptyList()
+        assertEquals(expected, articlesFromFlow)
     }
 }

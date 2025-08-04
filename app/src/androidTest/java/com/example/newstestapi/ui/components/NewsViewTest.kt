@@ -1,6 +1,7 @@
 package com.example.newstestapi.ui.components
 
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.compose.rememberNavController
@@ -38,11 +39,11 @@ class NewsViewTest {
 
         // Assert: Check texts are displayed
         composeTestRule
-            .onNodeWithText(appName)
+            .onNode(hasTestTag("appName_headerText"))
             .assertExists()
 
         composeTestRule
-            .onNodeWithText("Test Title")
+            .onNode(hasTestTag("headline_titleText"), useUnmergedTree = true)
             .assertExists()
     }
 
