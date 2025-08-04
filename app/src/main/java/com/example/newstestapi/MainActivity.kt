@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.example.newstestapi.manager.Navigator
 import com.example.newstestapi.viewModel.NewsViewModel
+import java.net.URLDecoder
 import java.util.concurrent.Executor
 
 @VisibleForTesting
@@ -43,11 +44,14 @@ open class MainActivity : FragmentActivity() {
         viewModel.fetchArticles()
 
         setContent {
-            val articles by viewModel.articles.collectAsState()
+            val articles by viewModel.articles.collectAsState(initial = emptyList())
 
             Navigator(
                 articles = articles,
-                onGetArticleByUrl = { url -> viewModel.getArticleByUrl(url) }
+                onGetArticleByEncodedUrl = { encodedUrl ->
+                    val decodedUrl = URLDecoder.decode(encodedUrl, "UTF-8")
+                    viewModel.getArticleByUrl(decodedUrl)
+                }
             )
         }
     }

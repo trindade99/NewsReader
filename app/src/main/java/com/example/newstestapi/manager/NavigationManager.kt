@@ -10,12 +10,11 @@ import com.example.newstestapi.R
 import com.example.newstestapi.model.ArticleModel
 import com.example.newstestapi.ui.view.DetailScreen
 import com.example.newstestapi.ui.view.NewsScreen
-import java.net.URLDecoder
 
 @Composable
 fun Navigator(
     articles: List<ArticleModel>,
-    onGetArticleByUrl: (String) -> ArticleModel?
+    onGetArticleByEncodedUrl: (String) -> ArticleModel?
 ) {
     val navController = rememberNavController()
 
@@ -27,8 +26,7 @@ fun Navigator(
 
         composable("detail/{articleUrl}") { backStackEntry ->
             val encodedUrl = backStackEntry.arguments?.getString("articleUrl") ?: ""
-            val decodedUrl = URLDecoder.decode(encodedUrl, "UTF-8")
-            val article = onGetArticleByUrl(decodedUrl)
+            val article = onGetArticleByEncodedUrl(encodedUrl)
             if (article != null) {
                 DetailScreen(article)
             } else {
