@@ -6,6 +6,10 @@ val newsApiKey: String by lazy {
     if (localPropsFile.exists()) {
         localPropsFile.inputStream().use { props.load(it) }
     }
+    /*
+    * Please add your own NEWS_API_KEY on the local.properties to run this app,
+    *  since exposing the key on the git repo is not advisable.
+    */
     props.getProperty("NEWS_API_KEY")
         ?: throw GradleException("NEWS_API_KEY not found in local.properties")
 }
